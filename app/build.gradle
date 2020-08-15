@@ -1,8 +1,30 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.tuannq-0847'
+
+ext {
+    bintrayRepo = 'FastPermissions' // Repo name in bintray dashboard
+    bintrayName = 'com.karleinstein.fastpermissions' // package name of the bintray repo
+
+    publishedGroupId = 'com.karleinstein.fastpermissions'   // this is the ID we want to see in implementation line
+    libraryName = 'FastPermissions'     // this is the module name of library
+    artifact = 'FastPermissions'        // this is the artifact we want to see in implementation line
+
+    libraryDescription = 'Test project library description' // description of library
+
+    siteUrl = 'https://github.com/tuannq-0847/FastPermissions'    // git repo url
+    gitUrl = 'https://github.com/tuannq-0847/FastPermissions.git' // git repo vcs url
+
+    libraryVersion = '0.1.1'      // library version
+
+    developerId = 'tuannq-0847'                // This is your bintray username
+    developerName = 'Karl Einstein'              // Developer's name
+    developerEmail = 'feedernoob01@gmail.com'                // Developer's email
+
+    licenseName = 'MIT License'  // for example, The Apache Software License, Version 2.0
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'   // for example, http://www.apache.org/licenses/LICENSE-2.0.txt
+    allLicenses = ["MIT License"]    // array of licenses, for example, ["Apache-2.0"]
+}
 
 android {
     compileSdkVersion 30
@@ -37,3 +59,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 }
+
+apply from: 'publish.gradle'
