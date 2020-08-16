@@ -11,7 +11,7 @@ object FastPermission {
     private var remainingPermissions: List<String> = mutableListOf()
     private var onDeniedPermissionsListener: PermissionDeniedListener? = null
 
-    internal fun setOnDeniedPermissionsListener(onDeniedPermissionsListener: PermissionDeniedListener) {
+    fun setOnDeniedPermissionsListener(onDeniedPermissionsListener: PermissionDeniedListener) {
         this.onDeniedPermissionsListener = onDeniedPermissionsListener
     }
 
