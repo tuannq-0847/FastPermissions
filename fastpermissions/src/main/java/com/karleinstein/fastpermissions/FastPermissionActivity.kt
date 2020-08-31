@@ -6,7 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker
 
-class FastPermissionActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
+class FastPermissionActivity : AppCompatActivity(),
+    ActivityCompat.OnRequestPermissionsResultCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,5 +33,10 @@ class FastPermissionActivity : AppCompatActivity(), ActivityCompat.OnRequestPerm
             }
         }
         FastPermission.getDeniedPermissions(deniedPermissions, deniedPermissionsForever)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        FastPermission.destroyPermissionActivity()
     }
 }
