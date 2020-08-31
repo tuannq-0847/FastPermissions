@@ -15,6 +15,10 @@ object FastPermission {
         this.onDeniedPermissionsListener = onDeniedPermissionsListener
     }
 
+    internal fun destroyPermissionActivity() {
+        onDeniedPermissionsListener = null
+    }
+
     internal fun getPermissionActivity(activity: Activity) {
         if (remainingPermissions.isEmpty()) return
         ActivityCompat.requestPermissions(activity, remainingPermissions.toTypedArray(), 8080)
