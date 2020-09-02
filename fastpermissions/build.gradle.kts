@@ -39,6 +39,8 @@ dependencies {
     implementation("androidx.core:core-ktx:1.3.1")
     androidTestImplementation("androidx.test.ext:junit:1.1.1")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    //leak canary
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
 
     implementation("com.auth0.android:jwtdecode:2.0.0")
@@ -51,7 +53,7 @@ tasks {
     }
 }
 
-apply(from=rootProject.file("gradle/publish.gradle"))
+apply(from = rootProject.file("gradle/publish.gradle"))
 
 tasks {
     val dokkaJavadoc by creating(org.jetbrains.dokka.gradle.DokkaTask::class) {
