@@ -4,15 +4,19 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.LifecycleObserver
 
 object FastPermission {
 
     private var remainingPermissions: List<String> = mutableListOf()
     private var onDeniedPermissionsListener: PermissionDeniedListener? = null
 
-    fun setOnDeniedPermissionsListener(onDeniedPermissionsListener: PermissionDeniedListener) {
+
+
+    fun setOnDeniedPermissionsListener(onDeniedPermissionsListener: PermissionDeniedListener?) {
         this.onDeniedPermissionsListener = onDeniedPermissionsListener
     }
 
@@ -21,6 +25,7 @@ object FastPermission {
     }
 
     internal fun getPermissionActivity(activity: Activity) {
+        Log.d("FastPermissions", "getPermissionActivity: ${remainingPermissions.size}")
         if (remainingPermissions.isEmpty()) return
         ActivityCompat.requestPermissions(activity, remainingPermissions.toTypedArray(), 8080)
     }
@@ -29,6 +34,12 @@ object FastPermission {
         deniedPermissions: List<String>,
         deniedPermissionsForever: List<String>
     ) {
+        deniedPermissions.forEach {
+            Log.d("FastPermissions", "getDeniedPermissions: $it")
+        }
+        deniedPermissionsForever.forEach {
+            Log.d("FastPermissions", "getDeniedPermissions: $it")
+        }
         if (deniedPermissionsForever.isNotEmpty()) onDeniedPermissionsListener?.onPermissionDeniedForever(
             deniedPermissionsForever
         )
@@ -43,6 +54,7 @@ object FastPermission {
         onGranted: () -> Unit
     ) {
         val isAllPermissionsGranted = activity.isPermissionGranted(permissions)
+        Log.d("FastPermissions", "check: ${isAllPermissionsGranted.first}")
         if (isAllPermissionsGranted.first) {
             onGranted()
         } else {
