@@ -1,6 +1,7 @@
 package com.karleinstein.fastpermissions
 
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -24,12 +25,14 @@ class FastPermissionActivity : AppCompatActivity(),
         val deniedPermissions = mutableListOf<String>()
         val deniedPermissionsForever = mutableListOf<String>()
         permissions.forEachIndexed { i, permission ->
+            Log.d("FastPermissions", "onRequestPermissionsResult: $permission")
             val isShouldShowRationale = shouldShowRequestPermissionRationale(permission)
             when (grantResults[i]) {
                 PermissionChecker.PERMISSION_DENIED, PermissionChecker.PERMISSION_DENIED_APP_OP -> {
                     if (!isShouldShowRationale) deniedPermissionsForever.add(permission)
                     else deniedPermissions.add(permission)
                 }
+                else -> finish()
             }
         }
         FastPermission.getDeniedPermissions(deniedPermissions, deniedPermissionsForever)
