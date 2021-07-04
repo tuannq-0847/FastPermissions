@@ -2,4 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.karleinstein.fastpermissions">
 
+    <application>
+        <activity android:name=".FastPermissionActivity"
+            android:theme="@style/Internal.Theme.Transparent"/>
+    </application>
+
 </manifest>
