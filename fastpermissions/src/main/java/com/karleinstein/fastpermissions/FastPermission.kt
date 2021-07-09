@@ -12,16 +12,10 @@ import androidx.lifecycle.LifecycleObserver
 object FastPermission {
 
     private var remainingPermissions: List<String> = mutableListOf()
-    private var onDeniedPermissionsListener: PermissionDeniedListener? = null
-
-
-
-    fun setOnDeniedPermissionsListener(onDeniedPermissionsListener: PermissionDeniedListener?) {
-        this.onDeniedPermissionsListener = onDeniedPermissionsListener
-    }
+    private var permissionListener: PermissionsListener? = null
 
     internal fun destroyPermissionActivity() {
-        onDeniedPermissionsListener = null
+        permissionListener = null
     }
 
     internal fun getPermissionActivity(activity: Activity) {
@@ -40,10 +34,10 @@ object FastPermission {
         deniedPermissionsForever.forEach {
             Log.d("FastPermissions", "getDeniedPermissions: $it")
         }
-        if (deniedPermissionsForever.isNotEmpty()) onDeniedPermissionsListener?.onPermissionDeniedForever(
+        if (deniedPermissionsForever.isNotEmpty()) permissionListener?.onPermissionDeniedForever(
             deniedPermissionsForever
         )
-        if (deniedPermissions.isNotEmpty()) onDeniedPermissionsListener?.onPermissionDenied(
+        if (deniedPermissions.isNotEmpty()) permissionListener?.onPermissionDenied(
             deniedPermissions
         )
     }
@@ -51,12 +45,13 @@ object FastPermission {
     fun check(
         activity: Activity,
         permissions: List<String>,
-        onGranted: () -> Unit
+        permissionListener: PermissionsListener
     ) {
+        this.permissionListener = permissionListener
         val isAllPermissionsGranted = activity.isPermissionGranted(permissions)
         Log.d("FastPermissions", "check: ${isAllPermissionsGranted.first}")
         if (isAllPermissionsGranted.first) {
-            onGranted()
+            this.permissionListener?.onGranted()
         } else {
             remainingPermissions = isAllPermissionsGranted.second
             startActivityTransparent(activity)
@@ -67,7 +62,7 @@ object FastPermission {
         val intent = Intent(activity, FastPermissionActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
-        Log.d("karleinstein","${activity.isDestroyed}")
+        Log.d("karleinstein", "${activity.isDestroyed}")
         if (!activity.isDestroyed)
             activity.startActivity(intent)
     }
@@ -102,15 +97,20 @@ object FastPermission {
             .show()
     }
 
-    interface PermissionDeniedListener {
-
-        fun onPermissionDeniedForever(deniedPermissionsForever: List<String>)
-        fun onPermissionDenied(deniedPermissions: List<String>)
+    internal fun onSuccess() {
+        permissionListener?.onGranted()
     }
 
     interface DialogExplainListener {
 
         fun onAllowClicked()
+    }
+
+    interface PermissionsListener {
+
+        fun onGranted()
+        fun onPermissionDeniedForever(deniedPermissionsForever: List<String>)
+        fun onPermissionDenied(deniedPermissions: List<String>)
     }
 }
 

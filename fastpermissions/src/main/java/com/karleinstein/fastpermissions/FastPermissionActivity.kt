@@ -32,7 +32,10 @@ class FastPermissionActivity : AppCompatActivity(),
                     if (!isShouldShowRationale) deniedPermissionsForever.add(permission)
                     else deniedPermissions.add(permission)
                 }
-                else -> finish()
+                else -> {
+                    finish()
+                    FastPermission.onSuccess()
+                }
             }
         }
         FastPermission.getDeniedPermissions(deniedPermissions, deniedPermissionsForever)
