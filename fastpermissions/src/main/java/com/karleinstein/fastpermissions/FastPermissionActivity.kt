@@ -39,10 +39,12 @@ class FastPermissionActivity : AppCompatActivity(),
             }
         }
         FastPermission.getDeniedPermissions(deniedPermissions, deniedPermissionsForever)
+        finish()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("FastPermissionActivity", "onDestroy: ...")
         FastPermission.destroyPermissionActivity()
     }
 }

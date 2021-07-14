@@ -4,10 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.LifecycleObserver
+import androidx.core.content.ContextCompat
 
 object FastPermission {
 
@@ -61,7 +60,7 @@ object FastPermission {
     private fun startActivityTransparent(activity: Activity) {
         val intent = Intent(activity, FastPermissionActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+//        intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
         Log.d("karleinstein", "${activity.isDestroyed}")
         if (!activity.isDestroyed)
             activity.startActivity(intent)
@@ -107,7 +106,6 @@ object FastPermission {
     }
 
     interface PermissionsListener {
-
         fun onGranted()
         fun onPermissionDeniedForever(deniedPermissionsForever: List<String>)
         fun onPermissionDenied(deniedPermissions: List<String>)
