@@ -10,7 +10,7 @@ plugins {
 
 android {
     compileSdkVersion(30)
-    buildToolsVersion("30.0.3")
+    buildToolsVersion("30.0.2")
     defaultConfig {
         minSdkVersion(23)
         targetSdkVersion(30)
@@ -47,6 +47,7 @@ tasks {
     }
 
     val javadocJar by creating(Jar::class) {
+//        dependsOn.add(dokkaJavadoc)
         archiveClassifier.set("javadoc")
     }
 }
@@ -57,9 +58,7 @@ artifacts {
 
 
 dependencies {
-//    val hiltVersion = "2.33-beta"
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.10")
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
     testImplementation("junit:junit:4.13.2")

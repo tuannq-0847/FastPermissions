@@ -3,10 +3,8 @@
     package="com.karleinstein.fastpermissions">
 
     <application>
-        <activity
-            android:name=".FastPermissionActivity"
-            android:noHistory="true"
-            android:theme="@style/Internal.Theme.Transparent" />
+        <activity android:name=".FastPermissionActivity"
+            android:theme="@style/Internal.Theme.Transparent"/>
     </application>
 
 </manifest>

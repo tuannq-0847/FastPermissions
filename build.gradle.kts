@@ -1,9 +1,3 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-plugins {
-    kotlin("jvm").version("1.4.31")
-}
-
 buildscript {
     val hiltVersion = "2.33-beta"
 //    val kotlinVersion by extra("1.4.31")
