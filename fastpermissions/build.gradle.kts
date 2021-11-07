@@ -5,10 +5,7 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     id("kotlin-kapt")
-    id("org.jetbrains.dokka")
     id("maven-publish")
-//    id("com.jfrog.bintray")
-//    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -42,20 +39,7 @@ android {
     }
 }
 
-//tasks {
-//    val dokka by getting(org.jetbrains.dokka.gradle.DokkaTask::class) {
-//        outputFormat = "html"
-//        outputDirectory = "$projectDir/../docs/"
-//    }
-//}
-
-//apply(from = rootProject.file("gradle/publish.gradle"))
-
 tasks {
-//    val dokkaJavadoc by creating(org.jetbrains.dokka.gradle.DokkaTask::class) {
-//        outputFormat = "javadoc"
-//        outputDirectory = "$buildDir/javadoc"
-//    }
 
     val sourcesJar by creating(Jar::class) {
         archiveClassifier.set("sources")
@@ -63,9 +47,7 @@ tasks {
     }
 
     val javadocJar by creating(Jar::class) {
-        dependsOn.add(dokkaJavadoc)
         archiveClassifier.set("javadoc")
-//        from(dokkaJavadoc.outputDirectory)
     }
 }
 
@@ -77,6 +59,7 @@ artifacts {
 dependencies {
 //    val hiltVersion = "2.33-beta"
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3")
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
     testImplementation("junit:junit:4.13.2")

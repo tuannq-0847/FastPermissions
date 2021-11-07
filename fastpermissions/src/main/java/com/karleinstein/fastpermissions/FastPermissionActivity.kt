@@ -6,6 +6,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker
+import kotlin.system.exitProcess
 
 class FastPermissionActivity : AppCompatActivity(),
     ActivityCompat.OnRequestPermissionsResultCallback {
@@ -32,7 +33,10 @@ class FastPermissionActivity : AppCompatActivity(),
                     if (!isShouldShowRationale) deniedPermissionsForever.add(permission)
                     else deniedPermissions.add(permission)
                 }
-                else -> finish()
+                else -> {
+                    FastPermission.onSuccesed()
+                    finish()
+                }
             }
         }
         FastPermission.getDeniedPermissions(deniedPermissions, deniedPermissionsForever)
@@ -40,6 +44,7 @@ class FastPermissionActivity : AppCompatActivity(),
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("FastPermissions", "onDestroy: ...")
         FastPermission.destroyPermissionActivity()
     }
 }
