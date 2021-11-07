@@ -34,7 +34,7 @@ class FastPermissionActivity : AppCompatActivity(),
                     else deniedPermissions.add(permission)
                 }
                 else -> {
-                    FastPermission.onSuccesed()
+                    FastPermission.onSuccess()
                     finish()
                 }
             }

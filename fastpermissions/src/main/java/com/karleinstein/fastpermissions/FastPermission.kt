@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import kotlinx.coroutines.flow.*
 
 object FastPermission {
 
@@ -39,11 +38,6 @@ object FastPermission {
         if (deniedPermissions.isNotEmpty()) permissionListener?.onPermissionDenied(
             deniedPermissions
         )
-    }
-
-    internal fun onSuccesed() {
-        onPermissionsListener?.onGranted()
-        onPermissionsListener = null
     }
 
     fun check(
