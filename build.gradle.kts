@@ -12,3 +12,13 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven(url = "https://jitpack.io")
+    }
+}
+
+apply(plugin = "org.jetbrains.kotlin.jvm")
