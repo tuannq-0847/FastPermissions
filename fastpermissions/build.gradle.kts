@@ -38,22 +38,29 @@ android {
     }
 }
 
-tasks {
 
-    val sourcesJar by creating(Jar::class) {
-        archiveClassifier.set("sources")
-        from(android.sourceSets.getByName("main").java.srcDirs)
-    }
-
-    val javadocJar by creating(Jar::class) {
-        archiveClassifier.set("javadoc")
-    }
+val sourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(android.sourceSets.getByName("main").java.srcDirs)
 }
 
-artifacts {
-    archives(tasks.getByName("sourcesJar"))
+val javadocJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("javadoc")
 }
 
+publishing{
+    publications {
+        create<MavenPublication>("maven") {
+//            groupId = publishedGroupId
+//            artifactId = artifact
+            version = "${project.version}"
+
+//            from(components["java"])
+            artifact(sourcesJar.get())
+            artifact(javadocJar.get())
+        }
+    }
+}
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.10")
