@@ -8,6 +8,9 @@ plugins {
     id("maven-publish")
 }
 
+group = "com.karleinstein"
+version = "1.0"
+
 android {
     compileSdk = 31
     buildToolsVersion = "30.0.3"
@@ -38,21 +41,18 @@ android {
     }
 }
 
-tasks {
-
-    val sourcesJar by creating(Jar::class) {
-        archiveClassifier.set("sources")
-        from(android.sourceSets.getByName("main").java.srcDirs)
-    }
-
-    val javadocJar by creating(Jar::class) {
-        archiveClassifier.set("javadoc")
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                groupId = "com.karleinstein"
+                artifactId = "color-console"
+                version = "1.0.25"
+            }
+        }
     }
 }
 
-artifacts {
-    archives(tasks.getByName("sourcesJar"))
-}
 
 
 dependencies {
