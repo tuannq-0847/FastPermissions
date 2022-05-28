@@ -47,7 +47,7 @@ afterEvaluate {
             create<MavenPublication>("maven") {
                 groupId = "com.karleinstein"
                 artifactId = "color-console"
-                version = "1.0.25"
+                version = "0.1.25"
             }
         }
     }
