@@ -5,19 +5,15 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     id("kotlin-kapt")
-    id("maven-publish")
+    id("com.vanniktech.maven.publish")
 }
 
-group = "com.karleinstein"
-version = "1.0"
-
 android {
-    compileSdk = 31
-    buildToolsVersion = "30.0.3"
+    compileSdkVersion(30)
+    buildToolsVersion("30.0.2")
     defaultConfig {
-        minSdk = 23
-        targetSdk = 31
-        version = 1
+        minSdkVersion(23)
+        targetSdkVersion(30)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -41,24 +37,10 @@ android {
     }
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("maven") {
-                groupId = "com.karleinstein"
-                artifactId = "color-console"
-                version = "0.1.25"
-            }
-        }
-    }
-}
-
-
-
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
+    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.appcompat:appcompat:1.4.2")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
