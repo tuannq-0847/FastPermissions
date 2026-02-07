@@ -26,12 +26,6 @@ object FastPermission {
         deniedPermissions: List<String>,
         deniedPermissionsForever: List<String>
     ) {
-        deniedPermissions.forEach {
-            Log.d("FastPermissions", "getDeniedPermissions: $it")
-        }
-        deniedPermissionsForever.forEach {
-            Log.d("FastPermissions", "getDeniedPermissions: $it")
-        }
         if (deniedPermissionsForever.isNotEmpty()) permissionListener?.onPermissionDeniedForever(
             deniedPermissionsForever
         )

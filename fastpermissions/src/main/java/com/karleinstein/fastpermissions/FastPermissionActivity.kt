@@ -6,7 +6,6 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker
-import kotlin.system.exitProcess
 
 class FastPermissionActivity : AppCompatActivity(),
     ActivityCompat.OnRequestPermissionsResultCallback {
@@ -33,13 +32,14 @@ class FastPermissionActivity : AppCompatActivity(),
                     if (!isShouldShowRationale) deniedPermissionsForever.add(permission)
                     else deniedPermissions.add(permission)
                 }
-                else -> {
-                    FastPermission.onSuccess()
-                    finish()
-                }
+                else -> { /* granted */ }
             }
         }
-        FastPermission.getDeniedPermissions(deniedPermissions, deniedPermissionsForever)
+        if (deniedPermissions.isEmpty() && deniedPermissionsForever.isEmpty()) {
+            FastPermission.onSuccess()
+        } else {
+            FastPermission.getDeniedPermissions(deniedPermissions, deniedPermissionsForever)
+        }
         finish()
     }
 
